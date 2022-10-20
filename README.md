@@ -1,5 +1,7 @@
 # task-tracker-app
+
 this is a task tracker app for tracking all your tasks throwout the day 
+
 ## Project setup
 ```
 npm install
