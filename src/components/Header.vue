@@ -1,12 +1,13 @@
 <template>
-  <header>
-    <h1>Task Tracker</h1>
-    <Button text="hello vue" color="red" />
+  <header >
+    <h1  >{{title}}</h1>
+    <Button text="Save"  />
   </header>
 </template>
 
 <script>
 import Button from "./Button.vue"  
+import '../assets/tailwind.css'
 export default {
   name: "Header",
   props: {
@@ -19,6 +20,7 @@ export default {
 </script>
 
 <style scoped>
+
 header {
   display: flex;
   justify-content: space-between;
