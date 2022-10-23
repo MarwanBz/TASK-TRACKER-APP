@@ -1,7 +1,11 @@
 <template>
-  <div  class="container">
-    <Header  title="Task Tracker" />
-    <Tasks :tasks="tasks"/>
+  <div class="container">
+    <Header title="Task Tracker" />
+    <Tasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
@@ -19,18 +23,26 @@ export default {
   },
   data() {
     return {
-      tasks : []
+      tasks : [],
     }
   },
-  
+  methods: {
+    deleteTask(id) {
+    this.tasks = this.tasks.filter((task) => task.id !== id)
+  },
+
+  toggleReminder(id){
+    this.tasks = this.tasks.map((task)=> task.id === id ? {...task, reminder: !task.reminder } : task)
+  }
+  },
+
   created() {
-    this.tasks [
+    this.tasks =  [
       { id: 1, text: 'Reading 10 pages', day: 'October 24th 2022', reminder: true },
       { id: 2, text: 'Search for networking projects', day: 'October 25th 2022', reminder: true},
       { id: 3, text: 'finish vue course', day: 'October 28th 2022' , reminder: false},
       { id: 4, text: 'Feed the pretty cat', day: 'October 30th 2022', reminder: false}
-    ],
-    console.log(this.tasks)
+    ]
   }
 };
 </script>

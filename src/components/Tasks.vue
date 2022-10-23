@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <div  v-for="i in tasks">
-        <h3 >{{ i.text }}</h3>
-      <!-- <Task :task="task" /> -->
+  
+    <div :key="task.id" v-for="task in tasks">
+        <!-- <h3 >{{ task.text }}</h3> -->
+      <Task @toggle-reminder="$emit('toggle-reminder', task.id)" @delete-task="$emit('delete-task', task.id)" :task="task" />
     </div>
-  </div>
+  
 </template>
 
 <script>
 import Task from "./Task.vue";
+
 export default {
   name: "Tasks",
   props: {
@@ -17,6 +18,8 @@ export default {
   components: {
     Task,
   },
+  emits: ['delete-task', 'toggle-reminder'],
+  
 };
 </script>
 
