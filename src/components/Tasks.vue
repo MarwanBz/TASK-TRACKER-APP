@@ -1,7 +1,7 @@
 <template>
   
+  <p v-show="tasks.length === 0">Nice You Completed All of Your Tasks For Today!</p>
     <div :key="task.id" v-for="task in tasks">
-        <!-- <h3 >{{ task.text }}</h3> -->
       <Task @toggle-reminder="$emit('toggle-reminder', task.id)" @delete-task="$emit('delete-task', task.id)" :task="task" />
     </div>
   
