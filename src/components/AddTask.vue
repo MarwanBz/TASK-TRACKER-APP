@@ -1,11 +1,11 @@
 <template>
   <form @submit.prevent="onSubmit" class="add-form">
     <div class="form-control">
-      <label>Task</label>
+      <label>Task: </label>
       <input type="text" v-model="text" name="text" placeholder="Add Task" />
     </div>
     <div class="form-control">
-      <label>Day & Time</label>
+      <label>Day & Time: </label>
       <input
         type="text"
         v-model="day"
@@ -14,7 +14,7 @@
       />
     </div>
     <div class="form-control form-control-check">
-      <label>Set Reminder</label>
+      <label>Set Reminder: </label>
       <input type="checkbox" v-model="reminder" name="reminder" />
     </div>
 
@@ -67,8 +67,11 @@ export default {
 }
 .form-control label {
   display: block;
+  color: #6f7e94;
+  font-weight: bold;
 }
 .form-control input {
+  border-radius: 5px;
   width: 100%;
   height: 40px;
   margin: 5px;

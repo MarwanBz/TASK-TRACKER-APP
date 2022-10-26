@@ -21,11 +21,15 @@ export default {
   .fa {
     color: red;
   }
+  .task:hover {
+    background: #f692ff;
+  }
   .task {
-    background: #dfdfdf;
+    background: #f8adff;
     padding: 10px 20px;
     cursor: pointer;
     margin: 5px;
+    border-radius: 55px;
   }
   .task.reminder {
     border-left: 5px solid skyblue;

@@ -1,6 +1,6 @@
 <template>
   <header >
-    <h1  >{{title}}</h1>
+    <h1 class="text-2xl font-bold text-slate-500" >{{title}}</h1>
     <Button :color="showAddTask? 'red': '' " :text="showAddTask ? 'Close' : 'Add Task'"  @toggle-form="$emit('toggle-add-form')" />
   </header>
 </template>

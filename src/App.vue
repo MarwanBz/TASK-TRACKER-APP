@@ -1,36 +1,27 @@
 <template>
-  <div class="container">
+  <div class="app-container">
     <Header
-      title="Task Tracker"
+      title="Task Tracker App"
       @toggle-add-form="toggleShowForm"
       :showAddTask="showAddTask"
     />
-    <div v-show="showAddTask">
-      <AddTask @add-task="addTask" />
-    </div>
-    <Tasks
-      @toggle-reminder="toggleReminder"
-      @delete-task="deleteTask"
-      :tasks="tasks"
-    />
+    <router-view :showAddTask="showAddTask"></router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-import Tasks from "./components/Tasks.vue";
-import AddTask from "./components/AddTask.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   name: "App",
   components: {
     Header,
-    Tasks,
-    AddTask,
+    Footer,
   },
   data() {
     return {
-      tasks: [],
       showAddTask: false,
     };
   },
@@ -38,61 +29,6 @@ export default {
     toggleShowForm() {
       this.showAddTask = !this.showAddTask;
     },
-
-    async addTask(task) {
-      console.log(task);
-      const res = await fetch("api/tasks", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(task),
-      });
-      const data = await res.json();
-      this.tasks = [...this.tasks, data];
-    },
-
-    async deleteTask(id) {
-      const res = await fetch(`api/tasks/${id}`, {
-        method: "DELETE",
-      });
-      res.status === 200
-        ? (this.tasks = this.tasks.filter((task) => task.id !== id))
-        : alert("Error deleting task");
-    },
-
-    async toggleReminder(id) {
-      const taskToToggle = await this.fetchTask(id)
-      const updTask ={...taskToToggle, reminder :!taskToToggle.reminder}
-
-      const res = await fetch(`api/tasks/${id}`,{
-        method: 'PUT',
-        headers: {
-          'Content-type' : 'application/json',
-        },
-        body: JSON.stringify(updTask)
-      })
-      const data = await res.json()
-      this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, reminder: data.reminder } : task
-      );
-    },
-
-    async fetchTasks() {
-      const res = await fetch("api/tasks");
-      const data = await res.json();
-      return data;
-    },
-
-    async fetchTask(id) {
-      const res = await fetch(`api/tasks/${id}`);
-      const data = await res.json();
-      return data;
-    },
-  },
-
-  async created() {
-    this.tasks = await this.fetchTasks();
   },
 };
 </script>
@@ -100,6 +36,7 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: #64748B;
 }
 
 * {
@@ -108,13 +45,25 @@ export default {
   margin: 0;
 }
 
-.container {
+body {
+  min-height: 100vh;
+  background-image: linear-gradient(#ffdce3, #ffcaff);
+  background-repeat: no-repeat;
+}
+
+.app-container {
+  background-image: linear-gradient(#ff8ea5, #ff68ff);
   max-width: 500px;
   min-height: 300px;
   margin: 30px auto;
   padding: 30px;
   overflow: auto;
-  border: 1px solid crimson;
   border-radius: 5px;
+  box-shadow: 1px 3px 15px rgb(114 114 114 / 47%);
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: bolder;
 }
 </style>
